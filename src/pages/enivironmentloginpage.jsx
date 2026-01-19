@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginIllustration from "../assets/login4.jpg";
-import RightBg from "../assets/k.image.jpg";
+import RightBg from "../assets/bgi.image.jpg";
 
 import { FcGoogle } from "react-icons/fc";
 import {
@@ -17,21 +17,21 @@ const SocialButton = ({ icon: Icon, text }) => (
   <button
     type="button"
     className="
-      w-full flex items-center justify-center gap-3
-      py-2.5 rounded-xl
-      bg-black/50
-      border border-green-500/25
-      text-white text-sm font-medium
-      hover:bg-black/70
+      w-full flex items-center justify-center gap-2
+      py-2 rounded-lg
+      bg-black/45
+      border border-white/20
+      text-white text-xs font-medium
+      hover:bg-black/60
       transition
     "
   >
-    <Icon className="text-lg" />
+    <Icon className="text-sm" />
     {text}
   </button>
 );
 
-/* ================= INPUT WITH ICON ================= */
+/* ================= INPUT ================= */
 const IconInput = ({
   id,
   type = "text",
@@ -41,7 +41,7 @@ const IconInput = ({
   icon: Icon,
 }) => (
   <div className="relative">
-    <Icon className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400/60 text-sm" />
+    <Icon className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400/70 text-sm" />
     <input
       id={id}
       type={type}
@@ -51,8 +51,8 @@ const IconInput = ({
       required
       className="
         w-full pl-10 pr-4 py-3 rounded-xl
-        bg-black/45 text-white
-        border border-green-500/30
+        bg-black/35 text-white
+        border border-green-500/25
         placeholder-gray-400
         focus:ring-2 focus:ring-green-400
         outline-none
@@ -76,66 +76,85 @@ export default function SignIn() {
           alt="Environment"
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-black/45" />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50" />
+        {/* 🌿 BIGGER QUOTE CARD */}
+        <div className="absolute left-44 top-1/2 -translate-y-1/2 max-w-2xl">
 
-        {/* 🌿 STYLED QUOTE (EMBEDDED INTO IMAGE) */}
-        <div className="absolute left-24 top-1/2 -translate-y-1/2 flex gap-6 text-white max-w-xl">
+          {/* glow */}
+          <div className="absolute -inset-12 bg-green-400/5 blur-3xl rounded-full" />
 
-          {/* Accent line */}
-          <div className="w-[3px] bg-green-400/80 rounded-full" />
+          <div
+            className="
+              relative
+              rounded-3xl
+              bg-white/6
+              backdrop-blur-sm
+              border border-white/25
+              px-12 py-12
+              text-white
+            "
+          >
+            <div className="flex gap-8 items-start">
+              <div className="w-[4px] bg-gradient-to-b from-green-400 to-emerald-300 rounded-full" />
 
-          <div>
-            <FaLeaf className="text-4xl text-green-400 mb-4" />
+              <div>
+                <FaLeaf className="text-5xl text-green-400 mb-6" />
 
-            <h2 className="text-5xl font-extrabold leading-tight">
-              The future
-              <br />
-              is shaped by
-              <br />
-              <span className="text-green-300">
-                what we protect.
-              </span>
-            </h2>
+                <h2 className="text-5xl font-extrabold leading-tight">
+                  The future
+                  <br />
+                  is shaped by
+                  <br />
+                  <span className="text-green-300">
+                    what we protect.
+                  </span>
+                </h2>
 
-            <p className="mt-5 text-white/75 text-base leading-relaxed max-w-lg">
-              Every action we take today defines the world
-              that tomorrow must live in.
-            </p>
+                <p className="mt-6 text-white/80 text-lg leading-relaxed">
+                  Every action we take today defines the world
+                  that tomorrow must live in.
+                </p>
 
-            <p className="mt-3 text-xs tracking-widest uppercase text-green-300/80">
-              Environmental Responsibility
-            </p>
+                <div className="mt-5 text-xs tracking-widest uppercase text-green-300/70">
+                  Environmental Responsibility
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ================= RIGHT LOGIN CARD ================= */}
+      {/* ================= RIGHT LOGIN ================= */}
       <div className="relative w-full md:w-4/12 flex items-center justify-center p-8">
-
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${RightBg})` }}
         />
-        <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
-        <div className="relative w-full max-w-lg rounded-[32px] overflow-hidden">
-          <div className="absolute inset-0 border border-green-500/30 rounded-[32px]" />
+        <div className="relative w-full max-w-md">
 
-          <div className="relative rounded-[32px] bg-green-900/25 backdrop-blur-xl px-10 py-10 text-white">
+          <div className="absolute -inset-[1px] rounded-[26px] border border-green-400/30" />
+          <div className="absolute inset-[6px] rounded-[20px] border border-white/10 pointer-events-none" />
+
+          <div className="relative rounded-[24px] bg-green-900/25 backdrop-blur-xl px-8 py-8 text-white">
 
             {/* Header */}
-            <div className="text-center mb-8">
-              <FaLeaf className="text-3xl text-green-400 mx-auto mb-2" />
-              <h1 className="text-2xl font-bold">
-                {showForgot ? "Reset Password" : "Environment Portal"}
-              </h1>
-              <p className="text-green-100 text-sm">
-                {showForgot
-                  ? "Enter your email to reset your password"
-                  : "Secure & responsible access"}
-              </p>
+            <div className="mb-6 pb-4 border-b border-green-500/25">
+              <div className="flex items-center gap-3">
+                <FaLeaf className="text-3xl text-green-400" />
+                <div>
+                  <h1 className="text-xl font-bold">
+                    {showForgot ? "Reset Access" : "Environment Portal"}
+                  </h1>
+                  <p className="text-green-100 text-xs">
+                    {showForgot
+                      ? "Recover your credentials securely"
+                      : "Authorized & responsible access"}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {!showForgot && (
@@ -162,7 +181,10 @@ export default function SignIn() {
                     icon={FaLock}
                   />
 
-                  <div className="flex justify-end">
+                  <div className="flex justify-between items-center pt-1">
+                    <span className="text-xs text-green-200/70">
+                      Secure login enabled
+                    </span>
                     <button
                       type="button"
                       onClick={() => setShowForgot(true)}
@@ -172,21 +194,21 @@ export default function SignIn() {
                     </button>
                   </div>
 
-                  <button className="w-full py-3 rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition">
+                  <button className="w-full mt-2 py-3 rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition">
                     Sign In
                   </button>
                 </form>
 
-                <div className="flex items-center gap-3 my-6">
+                <div className="flex items-center gap-3 my-5">
                   <div className="flex-1 h-px bg-green-500/30" />
                   <span className="text-xs text-green-100">OR</span>
                   <div className="flex-1 h-px bg-green-500/30" />
                 </div>
 
-                <div className="space-y-3">
-                  <SocialButton icon={FcGoogle} text="Continue with Google" />
-                  <SocialButton icon={FaFacebookF} text="Continue with Facebook" />
-                  <SocialButton icon={FaGithub} text="Continue with GitHub" />
+                <div className="space-y-2">
+                  <SocialButton icon={FcGoogle} text="Google" />
+                  <SocialButton icon={FaFacebookF} text="Facebook" />
+                  <SocialButton icon={FaGithub} text="GitHub" />
                 </div>
               </>
             )}
@@ -194,7 +216,7 @@ export default function SignIn() {
             {showForgot && (
               <form className="space-y-4">
                 <p className="text-sm text-white/70 text-center">
-                  We’ll send a password reset link to your registered email.
+                  Enter your registered email to receive a reset link.
                 </p>
 
                 <IconInput
@@ -221,7 +243,7 @@ export default function SignIn() {
             )}
 
             {!showForgot && (
-              <p className="text-center mt-6 text-xs text-green-100">
+              <p className="text-center mt-5 text-xs text-green-100">
                 Don’t have an account?{" "}
                 <a href="/signup" className="text-green-400 font-semibold">
                   Sign Up
