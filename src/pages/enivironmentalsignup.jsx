@@ -2,31 +2,31 @@ import React, { useState } from "react";
 import BgImage from "../assets/earth.image.jpg";
 
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebookF, FaGithub, FaLeaf } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaLeaf, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-/* ================= SOCIAL BUTTON ================= */
-const SocialButton = ({ icon: Icon, text }) => (
+/* ================= SOCIAL ICON ================= */
+const SocialIcon = ({ icon: Icon, iconClass = "" }) => (
   <button
     type="button"
     className="
-      flex items-center justify-center gap-3
-      w-full py-2 rounded-lg
-      bg-black/35 backdrop-blur-md
-      border border-white/20
-      text-white text-sm font-medium
+      w-10 h-10 flex items-center justify-center
+      rounded-full
+      bg-white
+      border border-white/80
+      shadow-sm
       transition
-      hover:bg-black/55 hover:border-green-400/40
+      hover:scale-105
+      active:scale-95
     "
   >
-    <Icon className="text-base" />
-    {text}
+    <Icon className={`text-lg ${iconClass}`} />
   </button>
 );
 
 /* ================= PASSWORD RULE ================= */
 const RuleItem = ({ ok, text }) => (
-  <div className="flex items-center gap-2 text-xs transition-all">
+  <div className="flex items-center gap-2 text-xs">
     <span className={ok ? "text-green-400" : "text-white/40"}>
       {ok ? "✔" : "✖"}
     </span>
@@ -38,6 +38,8 @@ const RuleItem = ({ ok, text }) => (
 
 export default function EnvironmentSignup() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const rules = {
     length: password.length >= 8,
@@ -45,6 +47,8 @@ export default function EnvironmentSignup() {
     number: /[0-9]/.test(password),
     special: /[^A-Za-z0-9]/.test(password),
   };
+
+  const showRules = passwordFocused || password.length > 0;
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -58,22 +62,18 @@ export default function EnvironmentSignup() {
 
       <div className="relative min-h-screen flex items-center">
 
-        {/* LEFT CONTENT (QUOTE SLIGHTLY SMALLER) */}
+        {/* LEFT CONTENT */}
         <div className="hidden md:flex w-1/2 px-20">
           <div className="max-w-lg text-white space-y-5">
             <FaLeaf className="text-4xl text-green-300" />
-
             <h2 className="text-4xl font-extrabold leading-tight">
               Protect the Earth,
               <br />
               <span className="text-green-300">Empower the Future.</span>
             </h2>
-
             <p className="text-base text-white/80">
-              Sustainability is not optional.  
-              It’s our responsibility.
+              Sustainability is not optional. It’s our responsibility.
             </p>
-
             <div className="h-1 w-20 bg-green-400 rounded-full" />
           </div>
         </div>
@@ -126,16 +126,28 @@ export default function EnvironmentSignup() {
                   className="col-span-2 px-3 py-2.5 rounded-lg bg-black/40 text-white border border-white/20 outline-none focus:ring-1 focus:ring-green-400"
                 />
 
+                {/* PASSWORD */}
                 <div className="col-span-2 space-y-2">
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-lg bg-black/40 text-white border border-white/20 outline-none focus:ring-1 focus:ring-green-400"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onFocus={() => setPasswordFocused(true)}
+                      onBlur={() => setPasswordFocused(false)}
+                      className="w-full px-3 py-2.5 pr-10 rounded-lg bg-black/40 text-white border border-white/20 outline-none focus:ring-1 focus:ring-green-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
 
-                  {password.length > 0 && (
+                  {showRules && (
                     <div className="pl-1 space-y-1">
                       <RuleItem ok={rules.length} text="At least 8 characters" />
                       <RuleItem ok={rules.uppercase} text="One uppercase letter" />
@@ -151,37 +163,42 @@ export default function EnvironmentSignup() {
                   className="col-span-2 px-3 py-2.5 rounded-lg bg-black/40 text-white border border-white/20 outline-none focus:ring-1 focus:ring-green-400"
                 />
 
-                <button className="
-                  col-span-2 mt-2 py-2.5 rounded-lg
-                  font-semibold text-white
-                  bg-gradient-to-r from-green-500 to-emerald-600
-                  hover:from-green-600 hover:to-emerald-700
-                  shadow-lg shadow-green-900/40
-                  transition
-                ">
+                {/* CREATE ACCOUNT */}
+                <button
+                  className="
+                    col-span-2 mt-2 py-2.5 rounded-lg
+                    font-semibold text-white
+                    bg-gradient-to-r from-green-500 to-emerald-600
+                    hover:from-green-600 hover:to-emerald-700
+                    transition
+                  "
+                >
                   Create Account
                 </button>
+
+                {/* OR */}
+                <div className="col-span-2 flex items-center gap-3 mt-4">
+                  <div className="flex-1 h-px bg-white/20" />
+                  <span className="text-xs text-white/60">OR</span>
+                  <div className="flex-1 h-px bg-white/20" />
+                </div>
+
+                {/* SOCIAL ICONS */}
+                <div className="col-span-2 mt-4 flex justify-center gap-4">
+                  <SocialIcon icon={FcGoogle} />
+                  <SocialIcon icon={FaFacebookF} iconClass="text-blue-500" />
+                  <SocialIcon icon={FaGithub} iconClass="text-black" />
+                </div>
+
+                {/* LAST LINE */}
+                <p className="col-span-2 mt-4 text-xs text-gray-300 text-center">
+                  Already have an account?{" "}
+                  <Link to="/" className="text-green-400 font-semibold hover:underline">
+                    Sign In
+                  </Link>
+                </p>
+
               </form>
-
-              <div className="flex items-center gap-4 my-4">
-                <div className="flex-1 h-px bg-white/20" />
-                <span className="text-xs text-gray-300">OR</span>
-                <div className="flex-1 h-px bg-white/20" />
-              </div>
-
-              <div className="space-y-2">
-                <SocialButton icon={FcGoogle} text="Continue with Google" />
-                <SocialButton icon={FaFacebookF} text="Continue with Facebook" />
-                <SocialButton icon={FaGithub} text="Continue with GitHub" />
-              </div>
-
-              <p className="mt-4 text-xs text-gray-300 text-center">
-                Already have an account?{" "}
-                <Link to="/" className="text-green-400 font-semibold hover:underline">
-                  Sign In
-                </Link>
-              </p>
-
             </div>
           </div>
         </div>
